@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colossal Cave Adventure</title>
+    <style>
+        body {
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dialogue-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+            align-items: start;
+        }
+
+        .ella-column {
+            color: black;
+            padding: 15px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tu-column {
+            color: black;
+            padding: 15px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-break {
+            grid-column: 1 / -1;
+            height: 1px;
+            background: black;
+            margin: 40px 0;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #8a2be2;
+        }
+
+        @media (max-width: 768px) {
+
+            .tu-column,
+            .ella-column {
+                padding: 5px;
+            }
+
+            .dialogue-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .section-break {
+                margin: 20px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">1100 DO 1101 I=1,100<br>
+            IPLACE(I)=IPLT(I)<br>
+            IFIXED(I)=IFIXT(I)<br>
+            1101 ICHAIN(I)=0</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">DO 1102 I=1,300<br>
+            COND(I)=0<br>
+            ABB(I)=0<br>
+            1102 IOBJ(I)=0</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">PAUSE 'INIT DONE'</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">1 CALL YES(65,1,0,YEA)<br>
+            L=1<br>
+            LOC=1</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás de pie al final de un camino, delante una pequeña edificación de ladrillo.</div>
+        <div class="tu-column">71 KK=STEXT(L)<br>
+            IF(ABB(L).EQ.0.OR.KK.EQ.0)KK=LTEXT(L)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Alrededor hay un bosque.</div>
+        <div class="tu-column">4 TYPE 5,(LLINE(KK,JJ),JJ=3,LLINE(KK,2))</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Un río sale desde dentro hacia el precipicio.</div>
+        <div class="tu-column">5 FORMAT(20A5)<br>
+            KK=KK+1<br>
+            IF(LLINE(KK-1,1).NE.0) GOTO 4</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">ESTE</div>
+        <div class="tu-column">2020 CALL GETIN(JTWO,A,TWOWD,B)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">2023 DO 2024 I=1,1000<br>
+            IF(ATAB(I).EQ.A)GOTO 2025<br>
+            2025 K=MOD(KTAB(I),1000)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">8 KK=KEY(LOC)<br>
+            9 LL=TRAVEL(KK)<br>
+            IF(K.EQ.MOD(LL,1024))GOTO 10<br>
+            10 L=LL/1024</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Has subido por una colina, sigues en el bosque, el camino desciende por el otro lado de
+            la colina.</div>
+        <div class="tu-column">(L=2)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">La construcción se encuentra ahora a una cierta distancia.</div>
+        <div class="tu-column">KK=STEXT(L)<br>
+            TYPE 5,(LLINE(KK,JJ),JJ=3,LLINE(KK,2))</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">OESTE</div>
+        <div class="tu-column">IF(K.EQ.MOD(LL,1024))GOTO 10<br>
+            L=LL/1024</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás dentro, es un refugio para un gran pozo.</div>
+        <div class="tu-column">(L=3)</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">NORTE</div>
+        <div class="tu-column">9 LL=TRAVEL(KK)<br>
+            10 L=LL/1024</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en un valle en el bosque, al borde del río, el cauce está lleno de piedras.</div>
+        <div class="tu-column">(L=4)<br>
+            TYPE 5,(LLINE(KK,JJ),JJ=3,LLINE(KK,2))</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en bosque abierto. Al lado, un valle oscuro.</div>
+        <div class="tu-column">(L=5)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">KK=KK+1<br>
+            GOTO 9</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en bosque abierto. Cerca, un valle y un camino.</div>
+        <div class="tu-column">(L=6)</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">A tus pies, el agua del río se estrella y cuela en una grieta en la piedra. Abajo solo
+            ves más piedras.</div>
+        <div class="tu-column">(L=7)<br>
+            IF(LLINE(KK-1,1).NE.0) GOTO 4</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en una hondonada profunda, de unos seis metros. Entre las piedras hay una rejilla
+            de acero incrustada.</div>
+        <div class="tu-column">(L=8)<br>
+            TYPE 5,(LLINE(KK,JJ),JJ=3,LLINE(KK,2))</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">El cauce, ya seco, llegaba hasta aquí y se metía más adentro.</div>
+        <div class="tu-column">KK=KK+1</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en una pequeña galería bajo una rejilla de acero de unos 3x3 metros. Un pasillo
+            bajo y estrecho conduce hacia el oeste.</div>
+        <div class="tu-column">(L=9)<br>
+            FORMAT(20A5)</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Avanzas a gatas por el suelo de adoquines. Al otro lado del túnel, una luz.</div>
+        <div class="tu-column">(L=10)<br>
+            TYPE 5,(LLINE(KK,JJ),JJ=3,LLINE(KK,2))</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás entre escombros, en una gruta llena de objetos arrastrados desde la superficie.
+            Lodo, barro y restos bloquean el paso, aunque parece haber un desfiladero resbaladizo y oscuro que sube
+            hacia el oeste.</div>
+        <div class="tu-column">(L=11)<br>
+            KK=KK+1<br>
+            IF(LLINE(KK-1,1).NE.0) GOTO 4</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Una nota en la pared dice: 'palabra mágica XYZZY'</div>
+        <div class="tu-column">(segundo párrafo de L=11)</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">XYZZY</div>
+        <div class="tu-column">IF(K.EQ.48)JSPK=42</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">CALL SPEAK(JSPK)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">GOTO 2</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en un desfiladero muy inclinado, puedes ir al este o al oeste.</div>
+        <div class="tu-column">(L=12)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">9 LL=TRAVEL(KK)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en una sala inmensa de nueve metros de altura. Las paredes parecen ríos
+            congelados de piedra caliza.</div>
+        <div class="tu-column">(L=13)<br>
+            TYPE 5,(LLINE(KK,JJ),JJ=3,LLINE(KK,2))</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">KK=KK+1</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">A tus pies, un pozo del que sale una niebla muy blanca. El camino terminaría aquí,
+            salvo por una oscura grieta que continúa más adelante.</div>
+        <div class="tu-column">(L=14)<br>
+            IF(LLINE(KK-1,1).NE.0) GOTO 4</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en el extremo de una enorme caverna que se extiende más allá de tu vista. Hay
+            aperturas a ambos lados. Cerca, una amplia escalera de piedra desciende hacia las profundidades.</div>
+        <div class="tu-column">(L=15)<br>
+            KK=KK+1</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">La niebla, que aquí es más blanca y espesa, se mueve como si respirara.</div>
+        <div class="tu-column">IF(LLINE(KK-1,1).NE.0) GOTO 4</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Un viento frío sube por la escalera. Detrás de ti, una erosión con forma de bóveda. En
+            su cima, una grieta.</div>
+        <div class="tu-column"><br>
+            TYPE 6</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en el Salón del Rey de la Montaña, con pasadizos que se dispersan en todas
+            direcciones.</div>
+        <div class="tu-column">(L=19)<br>
+            FORMAT(20A5)</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás al fondo del pozo con el cuello roto.</div>
+        <div class="tu-column">(L=20)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">No lo conseguiste.</div>
+        <div class="tu-column">PAUSE 'GAME IS OVER'<br>
+            GOTO 1100</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">No puedes escalar la bóveda.</div>
+        <div class="tu-column">(L=22)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">No puedes. Hay una reja de acero que impide el paso cerrada con llave.</div>
+        <div class="tu-column">(L=23)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">No cabes por un agujero de cinco centímetros.</div>
+        <div class="tu-column">(L=24)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column"></div>
+        <div class="tu-column">11 JSPK=12<br>
+            CALL SPEAK(JSPK)<br>
+            GOTO 2</div>
+    </div>
+
+    <div class="section-break"></div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en un laberinto de pequeños pasadizos serpenteantes, todos iguales.</div>
+        <div class="tu-column">(L=42)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">ESTE</div>
+        <div class="tu-column">KK=KK+1<br>
+            GOTO 9</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en un laberinto de pequeños pasadizos serpenteantes, todos iguales.</div>
+        <div class="tu-column">(L=43)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">OESTE</div>
+        <div class="tu-column">IF(TRAVEL(KK).LT.0)GOTO 11</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en un laberinto de pequeños pasadizos serpenteantes, todos iguales.</div>
+        <div class="tu-column">(L=44)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">SUR</div>
+        <div class="tu-column">GOTO 9</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Estás en un laberinto de pequeños pasadizos serpenteantes, todos iguales.</div>
+        <div class="tu-column">(L=45)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">NORTE</div>
+        <div class="tu-column">KK=KK+1</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Punto muerto.</div>
+        <div class="tu-column">(L=46)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Punto muerto.</div>
+        <div class="tu-column">(L=47)</div>
+    </div>
+
+    <div class="dialogue-container">
+        <div class="ella-column">Punto muerto.</div>
+        <div class="tu-column">(L=48)</div>
+    </div>
+
+</body>
+
+</html>
